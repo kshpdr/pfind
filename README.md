@@ -2,6 +2,7 @@
 
 To do:
 
+- [ ] Benchmark naive ```find```, MPI version ```find```, and ```find``` with GNUParallel
 - [ ] Prepare a testing benchmark (baseline with normal ```find```)
 - [ ] Implement an optimized non-parallel ```pfind```
 
