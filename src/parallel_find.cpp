@@ -34,17 +34,16 @@ void parallel_find(const std::string& root, const std::string& target) {
                     return;
                 }
                 struct dirent *entry;
-                WHILE:
                 while ((entry = readdir(dir))) {
                     std::string entry_name = entry->d_name;
                     if (entry_name == "." || entry_name == "..") {
-                        goto WHILE;
+                        goto ENDWHILE;
                     }
                     std::string full_path = current_directory + "/" + entry_name;
                     struct stat status;
                     if (stat(full_path.c_str(), &status) == -1) {
                         // std::cerr << "Could not get status of " << full_path << std::endl;
-                        goto WHILE;
+                        goto ENDWHILE;
                     }
                     if (S_ISDIR(status.st_mode)) {
                         #pragma omp critical(directory_queue)
@@ -52,6 +51,7 @@ void parallel_find(const std::string& root, const std::string& target) {
                     } else if (S_ISREG(status.st_mode) && entry_name == target) {
                         std::cout << full_path << std::endl;
                     }
+                    ENDWHILE:
                 }
                 closedir(dir);
             }
