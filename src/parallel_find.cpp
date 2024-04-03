@@ -15,7 +15,7 @@ void parallel_find(const std::string& root, const std::string& target) {
     #pragma omp single nowait
     {
         while (directory_queue.size() > 0) {
-            std::string current_directory = 0;
+            std::string current_directory;
             bool cd_assigned = false;
             #pragma omp critical(directory_queue)
             {
