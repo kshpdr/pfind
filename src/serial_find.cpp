@@ -4,7 +4,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string>
-#include <unistd.h>
 
 void serial_find(const std::string& root, const std::string& target) {
     std::queue<std::string> directory_queue;
