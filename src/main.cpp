@@ -1,27 +1,11 @@
 #include <iostream>
-#include <string>
-#include <vector>
-
-using namespace std;
+#include "serial_find.cpp"
 
 int main(int argc, char *argv[]) {
-    string path = ".";
-    string name;       
-
-    for (int i = 1; i < argc; ++i) {
-        string arg = argv[i];
-
-        if (arg == "-name" && i + 1 < argc) {
-            name = argv[++i];
-        } else {
-            path = arg;
-        }
-    }
-
-    if (name.empty()) {
-        cerr << "Usage: pfind [path] -name <filename>\n";
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <directory> <target>" << std::endl;
         return 1;
     }
-
+    serial_find(argv[1], argv[2]);
     return 0;
 }
