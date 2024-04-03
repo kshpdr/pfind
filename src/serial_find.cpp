@@ -29,6 +29,7 @@ void serial_find(const std::string& root, const std::string& target) {
             struct stat status;
             if (stat(full_path.c_str(), &status) == -1) {
                 // std::cerr << "Could not get status of " << full_path << std::endl;
+                continue;
             }
             if (S_ISDIR(status.st_mode)) {
                 directory_queue.push(full_path);
