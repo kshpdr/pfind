@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <omp.h>
 
-void serial_find(const std::string& root, const std::string& target) {
+void parallel_find(const std::string& root, const std::string& target) {
     std::queue<std::string> directory_queue;
     directory_queue.push(root);
 
@@ -34,16 +34,17 @@ void serial_find(const std::string& root, const std::string& target) {
                     return;
                 }
                 struct dirent *entry;
+                WHILE:
                 while ((entry = readdir(dir))) {
                     std::string entry_name = entry->d_name;
                     if (entry_name == "." || entry_name == "..") {
-                        continue;
+                        goto WHILE;
                     }
                     std::string full_path = current_directory + "/" + entry_name;
                     struct stat status;
                     if (stat(full_path.c_str(), &status) == -1) {
                         // std::cerr << "Could not get status of " << full_path << std::endl;
-                        continue;
+                        goto WHILE;
                     }
                     if (S_ISDIR(status.st_mode)) {
                         #pragma omp critical(directory_queue)
@@ -57,4 +58,13 @@ void serial_find(const std::string& root, const std::string& target) {
         }
     }
     #pragma omp taskwait
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <directory> <target>" << std::endl;
+        return 1;
+    }
+    parallel_find(argv[1], argv[2]);
+    return 0;
 }
