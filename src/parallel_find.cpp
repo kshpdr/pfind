@@ -16,15 +16,17 @@ void parallel_find(const std::string& root, const std::string& target) {
     {
         while (directory_queue.size() > 0) {
             std::string current_directory = 0;
+            bool cd_assigned = false;
             #pragma omp critical(directory_queue)
             {
                 if (directory_queue.size() > 0) {
                     current_directory = directory_queue.front();
                     directory_queue.pop();
+                    cd_assigned = true;
                 } 
             }
 
-            if (current_directory) {
+            if (cd_assigned) {
                 #pragma omp task firstprivate(current_directory)
                 {
                     DIR *dir = opendir(current_directory.c_str());
