@@ -1,3 +1,4 @@
+#include "serial_find.h"
 #include <iostream>
 #include <dirent.h>
 #include <queue>
