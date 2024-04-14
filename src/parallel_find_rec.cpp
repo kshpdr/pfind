@@ -41,9 +41,9 @@ void process_directory(const std::string& current_directory, const std::string& 
                     #pragma omp task
                     {
                         int thread_id = omp_get_thread_num();
-                        if (debug_enabled) {
-                            std::cout << "Thread " << thread_id << " processing directory: " << full_path << std::endl;
-                        }
+                        // if (debug_enabled) {
+                        //     std::cout << "Thread " << thread_id << " processing directory: " << full_path << std::endl;
+                        // }
                         process_directory(full_path, target);
                     }
                 } else if (S_ISREG(status.st_mode) && entry_name == target) {
