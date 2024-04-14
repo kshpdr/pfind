@@ -6,14 +6,6 @@
 #include <sys/stat.h>
 #include <string>
 #include <omp.h>
-
-#include <omp.h>
-#include <iostream>
-#include <dirent.h>
-#include <queue>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <string>
 #include <atomic>
 
 void parallel_find(const std::string& root, const std::string& target) {
