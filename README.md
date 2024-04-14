@@ -2,18 +2,12 @@
 
 To do:
 
+- [x] Implement an optimized non-parallel ```pfind```
 - [ ] Benchmark naive ```find```, MPI version ```find```, and ```find``` with GNUParallel
 - [ ] Prepare a testing benchmark (baseline with normal ```find```)
-- [ ] Implement an optimized non-parallel ```pfind```
 
 
 ## Usage:
-
-Create ```build``` directory:
-```
-mkdir build
-cd build
-```
 
 Allocate a machine:
 ```
@@ -26,9 +20,10 @@ module load cmake
 export OMP_NUM_THREADS=8
 ```
 
-Configure and build:
+Go to the src/ directory and compile:
 ```
-cmake ..
-make
+./make.sh
 ```
+
+After this you get two binaries `./pfind` and `./pfind_rec`
 
