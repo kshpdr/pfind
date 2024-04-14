@@ -1,4 +1,3 @@
-#include "parallel_find.h"
 #include <iostream>
 #include <dirent.h>
 #include <queue>
@@ -60,3 +59,11 @@ void parallel_find(const std::string& root, const std::string& target) {
     omp_set_nested(1);
     process_directory(root, target);
 }
+ int main(int argc, char *argv[]) {
+     if (argc != 3) {
+         std::cerr << "Usage: " << argv[0] << " <directory> <target>" << std::endl;
+         return 1;
+     }
+     parallel_find(argv[1], argv[2]);
+     return 0;
+ }
