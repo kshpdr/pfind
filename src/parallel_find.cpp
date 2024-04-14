@@ -51,7 +51,7 @@ void parallel_find(const std::string& root, const std::string& target) {
                                     omp_unset_lock(&queue_lock);
                                     // std::cout << "Thread " << omp_get_thread_num() << " enqueued: " << full_path << std::endl;
                                 } else if (S_ISREG(status.st_mode) && entry_name == target) {
-                                    std::cout << "Thread " << omp_get_thread_num() << " found: " << full_path << std::endl;
+                                    std::cout << full_path << std::endl;
                                 }
                             }
                         }
