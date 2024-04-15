@@ -14,9 +14,8 @@ Allocate a machine:
 salloc -N1 -c8 --ntasks-per-node=1 -t1:00:00
 ```
 
-Load cmake module and set number of threads:
+Set number of threads:
 ```
-module load cmake
 export OMP_NUM_THREADS=8
 ```
 
@@ -26,4 +25,3 @@ Go to the src/ directory and compile:
 ```
 
 After this you get two binaries `./pfind` and `./pfind_rec`
-
