@@ -1,0 +1,24 @@
+[submodule "tests/git/javascript-algorithms"]
+	path = tests/git/javascript-algorithms
+	url = https://github.com/trekhleb/javascript-algorithms.git
+[submodule "tests/git/Paper"]
+	path = tests/git/Paper
+	url = https://github.com/PaperMC/Paper.git
+[submodule "tests/git/awesome"]
+	path = tests/git/awesome
+	url = https://github.com/sindresorhus/awesome.git
+[submodule "tests/git/open-gpu-kernel-modules"]
+	path = tests/git/open-gpu-kernel-modules
+	url = https://github.com/NVIDIA/open-gpu-kernel-modules.git
+[submodule "tests/git/electron"]
+	path = tests/git/electron
+	url = https://github.com/electron/electron.git
+[submodule "tests/git/mlir-aie"]
+	path = tests/git/mlir-aie
+	url = https://github.com/Xilinx/mlir-aie.git
+[submodule "tests/git/freeCodeCamp"]
+	path = tests/git/freeCodeCamp
+	url = https://github.com/freeCodeCamp/freeCodeCamp.git
+[submodule "tests/git/dns-blocklists"]
+	path = tests/git/dns-blocklists
+	url = https://github.com/hartl3y94/dns-blocklists.git
