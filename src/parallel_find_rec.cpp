@@ -45,6 +45,9 @@ void process_directory(const std::string& current_directory, const std::string& 
                         // }
                         process_directory(full_path, target);
                     }
+		    if (entry_name == target) {
+			std::cout << full_path << std::endl;
+		    }
                 } else if (S_ISREG(status.st_mode) && entry_name == target) {
                     int thread_id = omp_get_thread_num();
                     // std::cout << "Thread " << thread_id << " found target: " << full_path << std::endl;
