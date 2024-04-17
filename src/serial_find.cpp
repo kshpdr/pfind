@@ -1,4 +1,4 @@
-#include "serial_find.h"
+#include <queue>
 #include <iostream>
 #include <dirent.h>
 #include <queue>
@@ -39,4 +39,13 @@ void serial_find(const std::string& root, const std::string& target) {
         }
         closedir(dir);
     }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <directory> <target>" << std::endl;
+        return 1;
+    }
+    serial_find(argv[1], argv[2]);
+    return 0;
 }
