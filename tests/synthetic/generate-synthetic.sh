@@ -23,20 +23,33 @@ for i in $(seq 0 $max); do
     done
 done
 
-max=10
+max=4
 for i in $(seq 0 $max); do
     for j in $(seq 0 $max); do
         for k in $(seq 0 $max); do
             for l in $(seq 0 $max); do
                 for m in $(seq 0 $max); do
-                    mkdir -p "test2/dir$i/dir$j/dir$k/dir$l/dir$m"
+                    mkdir -p "test2/dir$i/dir$j/dir$k/dir$l/dir$m" &
+                done
+            done
+        done
+    done
+done
+wait
+for i in $(seq 0 $max); do
+    for j in $(seq 0 $max); do
+        for k in $(seq 0 $max); do
+            for l in $(seq 0 $max); do
+                for m in $(seq 0 $max); do
+                    # mkdir -p "test2/dir$i/dir$j/dir$k/dir$l/dir$m"
                     for n in $(seq 0 $max); do
-                        touch "test2/dir$i/dir$j/dir$k/dir$l/dir$m/file$n"
+                        touch "test2/dir$i/dir$j/dir$k/dir$l/dir$m/file$n" &
                     done
                 done
             done
         done
     done
 done
+wait
 
 # todo: create some files with really long names maybe
