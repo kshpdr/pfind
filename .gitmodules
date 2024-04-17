@@ -19,6 +19,6 @@
 [submodule "tests/git/freeCodeCamp"]
 	path = tests/git/freeCodeCamp
 	url = https://github.com/freeCodeCamp/freeCodeCamp.git
-[submodule "tests/git/dns-blocklists"]
-	path = tests/git/dns-blocklists
-	url = https://github.com/hartl3y94/dns-blocklists.git
+[submodule "tests/git/riscv-isa-sim"]
+	path = tests/git/riscv-isa-sim
+	url = https://github.com/riscv-software-src/riscv-isa-sim.git
