@@ -2,16 +2,17 @@
 #include <string>
 #include <boost/lockfree/queue.hpp>
 #include <dirent.h>
+#include <sys/stat.h>
 #include <omp.h>
 #include <atomic>
 
-boost::lockfree::queue_t<std::string *> directory_queue(128);
+boost::lockfree::queue<std::string *> directory_queue(128);
 std::string target;
 std::atomic<int> active_tasks(0);
 void search_directories() {
     std::string *current_directory;
     bool popped = false;
-    while (popped = directory_queue.pop(current_directory) || active_tasks != 0) {
+    while ((popped = directory_queue.pop(current_directory)) || active_tasks != 0) {
         if (popped) {
             active_tasks++;
             DIR *dir = opendir(current_directory->c_str());
