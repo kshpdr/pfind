@@ -17,8 +17,8 @@ echo "Results in $folder"
 # order is find, fdfind, b_pfind, pfind, pfind_rec
 
 test_ryan_func() {
-    export filenamecsv="$folder/results-$directory-$keyword.csv"
-    export filenamejson="$folder/results-$directory-$keyword.json"
+    export filenamecsv="$folder/results-usr-$keyword.csv"
+    export filenamejson="$folder/results-usr-$keyword.json"
     touch $filenamecsv
     touch $filenamejson
     hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
