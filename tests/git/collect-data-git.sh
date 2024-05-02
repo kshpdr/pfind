@@ -1,28 +1,39 @@
-#!/bin/sh
+#!/bin/bash
+
+export PATH=$PATH:../
+export PATH=$PATH:$(pwd)/../../src/
+
+if ! which hyperfine > /dev/null 2>&1; then
+    echo "'hyperfine' does not seem to be installed."
+    echo "You can get it here: https://github.com/sharkdp/hyperfine"
+    exit 1
+fi
 
 # generate new file name for this run
-filename="git-$(date +%Y%m%d%H%M%S).csv"
-touch $filename
-echo "Writing to $filename"
-echo "directory,keyword,find real time,find user time,find sys time,pfind real time,pfind user time,pfind sys time" > $filename
+export folder="git-hyperfine-$(date +%Y%m%d%H%M%S)-results"
+mkdir -p $folder
+echo "Results in $folder"
 
-echo -n ".,test," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find . -name "test" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind . "test" > /dev/null 2>&1
+# order is find, fdfind, b_pfind, pfind
 
+test_ryan_func() {
+    export filenamecsv="$folder/results-$directory-$keyword.csv"
+    export filenamejson="$folder/results-$directory-$keyword.json"
+    touch $filenamecsv
+    touch $filenamejson
+    hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
+    --export-csv "$filenamecsv" -r 50 -w 3 \
+        "find $directory -name $keyword  " \
+        "fdfind -uu --glob $keyword $directory  " \
+        "b_pfind $directory $keyword  " \
+        "pfind $directory $keyword  " 
+        # "/home/ryan/spring24/cse6230/project/pfind/src/pfind_rec $directory $keyword  "
+}
 
-echo -n ".,README.md," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find . -name "README.md" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind . "README.md" > /dev/null 2>&1
+export directory="."
+export keyword="src"
+test_ryan_func
 
-echo -n ".,util," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find . -name "util" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind . "util" > /dev/null 2>&1
-
-echo -n ".,src," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find . -name "src" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind . "src" > /dev/null 2>&1
+export directory="."
+export keyword="README.md"
+test_ryan_func
