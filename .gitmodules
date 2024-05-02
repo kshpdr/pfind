@@ -15,7 +15,7 @@
 	url = https://github.com/electron/electron.git
 [submodule "tests/git/mlir-aie"]
 	path = tests/git/mlir-aie
-	url = https://github.com/Xilinx/mlir-aie.git
+	url = https://github.com/emosy/mlir-aie.git
 [submodule "tests/git/freeCodeCamp"]
 	path = tests/git/freeCodeCamp
 	url = https://github.com/freeCodeCamp/freeCodeCamp.git
