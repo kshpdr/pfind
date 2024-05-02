@@ -3,7 +3,7 @@
 export PATH=$PATH:../
 export PATH=$PATH:$(pwd)/../../src/
 
-if ! which hyperfine  ; then
+if ! which hyperfine > /dev/null 2>&1; then
     echo "'hyperfine' does not seem to be installed."
     echo "You can get it here: https://github.com/sharkdp/hyperfine"
     exit 1
@@ -23,10 +23,10 @@ test_ryan_func() {
     touch $filenamejson
     hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
     --export-csv "$filenamecsv" --ignore-failure -r 50 -w 3 \
-        "find $directory -name '$keyword' 2>/dev/null" \
-        "fdfind -uu --glob $keyword $directory  2>/dev/null" \
-        "b_pfind $directory $keyword  2>/dev/null" \
-        "pfind $directory $keyword  2>/dev/null" 
+        "find $directory -name '$keyword' " \
+        "fdfind -uu --glob $keyword $directory  " \
+        "b_pfind $directory $keyword  " \
+        "pfind $directory $keyword  " 
         # "/home/ryan/spring24/cse6230/project/pfind/src/pfind_rec $directory $keyword  "
 }
 
