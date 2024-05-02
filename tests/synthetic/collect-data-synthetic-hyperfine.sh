@@ -16,7 +16,7 @@ echo "Results in $folder"
 
 # order is find, fdfind, b_pfind, pfind
 
-test_ryan_func() {
+run_hyperfine_tests() {
     export filenamecsv="$folder/results-$directory-$keyword.csv"
     export filenamejson="$folder/results-$directory-$keyword.json"
     touch $filenamecsv
@@ -32,12 +32,12 @@ test_ryan_func() {
 
 export directory="test1"
 export keyword="file0"
-test_ryan_func
+run_hyperfine_tests
 
 export directory="test2"
 export keyword="file3"
-test_ryan_func
+run_hyperfine_tests
 
 export directory="."
 export keyword="file4"
-test_ryan_func
+run_hyperfine_tests
