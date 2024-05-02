@@ -22,3 +22,6 @@
 [submodule "tests/git/riscv-isa-sim"]
 	path = tests/git/riscv-isa-sim
 	url = https://github.com/riscv-software-src/riscv-isa-sim.git
+[submodule "tests/hyperfine"]
+	path = tests/hyperfine
+	url = https://github.com/sharkdp/hyperfine.git
