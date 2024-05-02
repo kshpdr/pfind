@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=$PATH:../
+export PATH=$PATH:$(pwd)/../
 export PATH=$PATH:$(pwd)/../../src/
 
 if ! which hyperfine > /dev/null 2>&1; then
