@@ -22,11 +22,11 @@ test_ryan_func() {
     touch $filenamecsv
     touch $filenamejson
     hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
-    --export-csv "$filenamecsv" -r 50 -w 3 \
-        "find $directory -name $keyword  " \
-        "fdfind -uu --glob $keyword $directory  " \
-        "b_pfind $directory $keyword  " \
-        "pfind $directory $keyword  " 
+    --export-csv "$filenamecsv" --show-output -r 50 -w 3 \
+        "find $directory -name $keyword  2>/dev/null" \
+        "fdfind -uu --glob $keyword $directory  2>/dev/null" \
+        "b_pfind $directory $keyword  2>/dev/null" \
+        "pfind $directory $keyword  2>/dev/null" 
         # "/home/ryan/spring24/cse6230/project/pfind/src/pfind_rec $directory $keyword  "
 }
 
