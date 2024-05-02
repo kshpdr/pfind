@@ -22,7 +22,7 @@ test_ryan_func() {
     touch $filenamecsv
     touch $filenamejson
     hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
-    --export-csv "$filenamecsv" --show-output -r 50 -w 3 \
+    --export-csv "$filenamecsv" --ignore-failure -r 50 -w 3 \
         "find $directory -name '$keyword' 2>/dev/null" \
         "fdfind -uu --glob $keyword $directory  2>/dev/null" \
         "b_pfind $directory $keyword  2>/dev/null" \
