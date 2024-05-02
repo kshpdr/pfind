@@ -18,7 +18,9 @@ void process_directory(const std::string& current_directory, const std::string& 
     std::vector<std::string> entries;
     struct dirent *entry;
     while ((entry = readdir(dir))) {
-        entries.push_back(entry->d_name);
+        if (entry->d_type != DT_LNK) {
+            entries.push_back(entry->d_name);
+        }
     }
     closedir(dir);
 

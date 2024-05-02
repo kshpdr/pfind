@@ -20,7 +20,7 @@ void search_directories() {
                 struct dirent *entry;
                 while ((entry = readdir(dir))) {
                     std::string entry_name = entry->d_name;
-                    if (!(entry_name == "." || entry_name == "..")) {
+                    if (entry->d_type != DT_LNK && !(entry_name == "." || entry_name == "..")) {
                         std::string *full_path = new std::string(*current_directory + "/" + entry_name);
                         struct stat status;
                         if (stat(full_path->c_str(), &status) != -1) {
@@ -48,6 +48,11 @@ int main(int argc, char *argv[]) {
     target = argv[2];
     directory_queue.push(root);
     
+#ifdef FIXED_NUM_THREADS
+    static_assert(int(FIXED_NUM_THREADS) == FIXED_NUM_THREADS, "FIXED_NUM_THREADS must be an integer");
+    omp_set_num_threads(FIXED_NUM_THREADS);
+#endif
+
     #pragma omp parallel
     {
         search_directories();
