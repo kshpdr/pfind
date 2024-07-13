@@ -1,37 +1,43 @@
-#!/bin/sh
+#!/bin/bash
+
+export PATH=$PATH:../
+export PATH=$PATH:$(pwd)/../../src/
+
+if ! which hyperfine > /dev/null 2>&1; then
+    echo "'hyperfine' does not seem to be installed."
+    echo "You can get it here: https://github.com/sharkdp/hyperfine"
+    exit 1
+fi
 
 # generate new file name for this run
-filename="synthetic-$(date +%Y%m%d%H%M%S).csv"
-touch $filename
-echo "Writing to $filename"
-echo "directory,keyword,find real time,find user time,find sys time,pfind real time,pfind user time,pfind sys time" > $filename
+export folder="synthetic-hyperfine-$(date +%Y%m%d%H%M%S)-results"
+mkdir -p $folder
+echo "Results in $folder"
 
-echo -n "test1,file0," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find test1 -name "file0" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind test1 "file0" > /dev/null 2>&1
+# order is find, fdfind, b_pfind, pfind
 
+run_hyperfine_tests() {
+    export filenamecsv="$folder/results-$directory-$keyword.csv"
+    export filenamejson="$folder/results-$directory-$keyword.json"
+    touch $filenamecsv
+    touch $filenamejson
+    hyperfine --sort command -u microsecond -N --export-json "$filenamejson" \
+    --export-csv "$filenamecsv" -r 50 -w 3 \
+        "find $directory -name $keyword  " \
+        "fdfind -uu --glob $keyword $directory  " \
+        "b_pfind $directory $keyword  " \
+        "pfind $directory $keyword  " 
+        # "/home/ryan/spring24/cse6230/project/pfind/src/pfind_rec $directory $keyword  "
+}
 
-echo -n "test1,file1," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find test1 -name "file1" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind test1 "file1" > /dev/null 2>&1
+export directory="test1"
+export keyword="file0"
+run_hyperfine_tests
 
+export directory="test2"
+export keyword="file3"
+run_hyperfine_tests
 
-echo -n "test1,file5," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find test1 -name "file5" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind test1 "file5" > /dev/null 2>&1
-
-
-
-echo -n "test2,file3," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find test2 -name "file3" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind test2 "file3" > /dev/null 2>&1
-
-
-echo -n ".,file4," >> $filename
-\time -f '%e,%U,%S,' -a -o $filename find . -name "file4" > /dev/null 2>&1
-truncate -s-1 $filename
-\time -f '%e,%U,%S,' -a -o $filename /home/ryan/spring24/cse6230/project/pfind/src/pfind . "file4" > /dev/null 2>&1
+export directory="."
+export keyword="file4"
+run_hyperfine_tests

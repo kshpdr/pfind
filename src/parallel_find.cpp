@@ -38,7 +38,7 @@ void parallel_find(const std::string& root, const std::string& target) {
                         struct dirent *entry;
                         while ((entry = readdir(dir))) {
                             std::string entry_name = entry->d_name;
-                            if (entry_name == "." || entry_name == "..") {
+                            if (entry->d_type == DT_LNK || entry_name == "." || entry_name == "..") {
                                 continue;
                             }
                             std::string full_path = current_directory + "/" + entry_name;

@@ -15,10 +15,13 @@
 	url = https://github.com/electron/electron.git
 [submodule "tests/git/mlir-aie"]
 	path = tests/git/mlir-aie
-	url = https://github.com/Xilinx/mlir-aie.git
+	url = https://github.com/emosy/mlir-aie.git
 [submodule "tests/git/freeCodeCamp"]
 	path = tests/git/freeCodeCamp
 	url = https://github.com/freeCodeCamp/freeCodeCamp.git
 [submodule "tests/git/riscv-isa-sim"]
 	path = tests/git/riscv-isa-sim
 	url = https://github.com/riscv-software-src/riscv-isa-sim.git
+[submodule "tests/hyperfine"]
+	path = tests/hyperfine-src
+	url = https://github.com/sharkdp/hyperfine.git
