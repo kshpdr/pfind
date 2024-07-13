@@ -1,10 +1,6 @@
 # pfind
 
-To do:
-
-- [x] Implement an optimized non-parallel ```pfind```
-- [ ] Benchmark naive ```find```, MPI version ```find```, and ```find``` with GNUParallel
-- [ ] Prepare a testing benchmark (baseline with normal ```find```)
+The Linux `find` command does not currently support multithreading or any form of parallelism, which can be problematic in larger codebases. We propose a modified version called `pfind` that introduces multithreading using OpenMP. We benchmark it against actual find on multiple datasets. Results and our approach can be found in the [paper](https://github.com/kshpdr/pfind/blob/main/paper.pdf). Additionally, we upload a [presentation](https://github.com/kshpdr/pfind/blob/main/presentation.pdf) with better visualization of what happens under the hood.
 
 
 ## Usage:
